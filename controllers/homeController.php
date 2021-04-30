@@ -1,34 +1,34 @@
 <?php
 
-/**Controller referente ao uso da home */
-class homeController extends controller
-{
+/* * Controller referente ao uso da home */
 
-	public function __construct()
-	{
-		parent::__construct();
+class homeController extends controller {
 
-		$alunos = new alunosModels();
+    public function __construct() {
+        parent::__construct();
 
-		if (!$alunos->isLogged()) {
-			header("Location: " . BASE . "login");
-		}
-	}
-	public function index()
-	{
-		$dados = array(
-			'info' => [],
-			'cursos' => []
-		);
-		$alunos = new alunosModels();
-		$alunos->setALuno($_SESSION['lgaluno']);
-		$dados['info'] = $alunos;
+        $alunos = new alunosModels();
 
-		$cursos = new CursoModels();
-		// die(var_dump($cursos));
-		$dados['cursos'] = $cursos->getCursosDoAluno($alunos->getId());
-		// var_dump($dados);
-		// exit;
-		$this->loadTemplate('home', $dados);
-	}
+        if (!$alunos->isLogged()) {
+            header("Location: " . BASE . "login");
+        }
+    }
+
+    public function index() {
+        $dados = array(
+            'info' => [],
+            'cursos' => []
+        );
+        $alunos = new alunosModels();
+        $alunos->setALuno($_SESSION['lgaluno']);
+        $dados['info'] = $alunos;
+
+        $cursos = new CursoModels();
+        // die(var_dump($cursos));
+        $dados['cursos'] = $cursos->getCursosDoAluno($alunos->getId());
+        // var_dump($dados);
+        // exit;
+        $this->loadTemplate('home', $dados);
+    }
+
 }
